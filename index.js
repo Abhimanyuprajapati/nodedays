@@ -1,0 +1,9 @@
+// main 
+// require('./day2/localModules')    // local modules
+
+// const sum=require('./day2/exportModules')   //export module
+// console.log(sum(10,50));
+
+require('./day2/moduleScope')
+
+
