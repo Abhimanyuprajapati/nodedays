@@ -6,4 +6,8 @@
 
 // require('./day2/moduleScope')
 
-require('./day3/builtinmodule')     // Built-in Module
+// require('./day3/builtinmodule')     // Built-in Module   1. Path module 
+
+
+require('./day3/eventmodule2')      // Event Module 
+
