@@ -1,10 +1,14 @@
 import { Router } from "express";
+import authMiddleware from "../middleware/auth.middleware.js";
 
-const route = Router();
+const router = Router();
 
-route.get("/dashboard",(req, res)=>{
-    res.status(200).send("Welcome to your dashboard");  
+router.get("/dashboard", authMiddleware, (req, res)=>{
+    res.status(200).send({
+        message: `Welcome to dashboard ${req.user.name}`,
+    });
 })
 
+//   "/dashboard"   ===> (access only they have token)
 
-export default route;
+export default router;

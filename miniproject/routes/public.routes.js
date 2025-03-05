@@ -1,18 +1,21 @@
 import { Router } from "express";
+import { generateToken } from "../utils/token-utils.js";
 
-const route = Router();
+const router = Router();
 
-route.get("/generate-token",(req, res)=>{
-    const token = "token";
+router.get("/generate-token", (req, res)=>{
+    const token= generateToken();
+
     res.status(200).send({
-        message: "token generated",
-        token:token,
+        message:"Token generated successfully",
+        token:token
     })
 })
 
-route.get("/", (req, res)=>{
-    res.status(200).send("welcome to our home");
+router.get("/", (req, res)=>{
+    res.status(200).send({
+        message:"Welcome to home page",
+    })
 })
 
-
-export default route;
+export default router;

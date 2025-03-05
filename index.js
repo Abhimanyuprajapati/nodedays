@@ -1,13 +1,12 @@
-// main 
-// require('./day2/localModules')    // local modules
+const http = require('http');
 
-// const sum=require('./day2/exportModules')   //export module
-// console.log(sum(10,50));
+const PORT = 8080;
 
-// require('./day2/moduleScope')
+const SERVER = http.createServer((request, response)=>{
+    console.log(request.url);
+    response.end("server connection is on");
+})
 
-// require('./day3/builtinmodule')     // Built-in Module   1. Path module 
-
-
-// require('./day3/eventmodule2')      // Event Module 
-
+SERVER.listen(PORT,()=>{
+    console.log(`Example app listening on port ${PORT}`)
+})

@@ -1,21 +1,12 @@
-// learning stream in nodejs 
+import express from 'express';
 
-const http = require('http');
-const fs = require('fs');
+const app = express();
 
-const PORT = 8000
-const file ="data.txt";
-const SERVER = http.createServer((req, res)=>{
-    if(fs.existsSync(file)){
-        // const   
-        const filer =fs.readFileSync(file);
-        res.end(filer);
-    }else{
-        res.end("somethings went wrong");
-    }
-        
-});
+app.get("/", (req, res)=>{
+    res.cookie("name","express");
+    res.status(200).send("hello man");
+})
 
-SERVER.listen(PORT, ()=>{
-    console.log("server is running");
+app.listen(8000, ()=>{
+    console.log("server is running on http://localhost:8000");
 })
