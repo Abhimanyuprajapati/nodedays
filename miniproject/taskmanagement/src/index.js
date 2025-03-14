@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser";
 
 // local imports
 import authRoute from "./routes/auth.routes.js";
+import taskRoute from "./routes/task.routes.js";
 
 
 const app = express(); 
@@ -30,6 +31,8 @@ app.get("/", (req, res)=>{
 })
 
 app.use("/auth", authRoute)
+
+app.use("/task", taskRoute)
 
 app.listen(8000, () =>{
     console.log("server is running on port http://localhost:8000");
