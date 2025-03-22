@@ -43,8 +43,27 @@ For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
         age: 25
     }
     ]
+
+==== db.collection_name.find().count()   ( return a total count of collection )
     
-====  
+==== db.collection_name.find(  
+    {
+        price:{
+        $eq: 2.25
+            }
+    }
+    )   ( Equal to operator is used to find based on condition )
+
+
+==== db.collection_name.find(  
+    {
+        price:{
+        $ne: 2.25
+            }
+    }
+    )   ( Not Equal to operator is used to find based on condition and return all data which is not equal )
+
+
 
 
  -->
