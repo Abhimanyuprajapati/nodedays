@@ -26,9 +26,25 @@ For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
 ==== show collections (will show all collection in that dbs)
 
 ==== db.collection_name.find (will always give you all data)
+    IMP****  Using find method will always return an array of object    
 
+==== db.collection_name.findOne.  (will always return one starting data)
 
-
+==== db.collection_name.find( {"key":"value"} )   (will always return the data match )
+    e.g 
+    mydb> db.student.find({"gmail":"mansi@gmail.com"})
+    [
+    {
+        _id: ObjectId('67d716c87a13ccb213b71295'),
+        name: 'Mansi',
+        id: 117,
+        rollno: 142,
+        gmail: 'mansi@gmail.com',
+        age: 25
+    }
+    ]
+    
+====  
 
 
  -->
