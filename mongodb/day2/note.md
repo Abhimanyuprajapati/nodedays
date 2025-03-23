@@ -64,6 +64,14 @@ For mongosh info see: https://www.mongodb.com/docs/mongodb-shell/
     )   ( Not Equal to operator is used to find based on condition and return all data which is not equal )
 
 
+==== db.collection_name.find({         (expr will always compare if a> b return that)
+$expr:{
+        $gt: ["$price", "$count"]      
+    }
+})
 
+
+
+==== db.student.find({}, {"name:1", "gmail:1"});  (projection will always return what you want with defauld paramerter id)
 
  -->
