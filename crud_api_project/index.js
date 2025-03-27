@@ -2,6 +2,7 @@ require("dotenv").config(); // Load environment variables
 const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("./models/product.model.js");
+const productRoute = require("./routes/product.route.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -17,6 +18,8 @@ mongoose
   .catch((err) => console.error("Database connection error:", err));
 
 // routes
+app.use("/api/products", productRoute);
+
 app.get("/", (req, res) => {
   res.send("Hello World! to my l...");
 });
@@ -47,7 +50,7 @@ app.get("/api/products", async (req, res) => {
 // })
 
 // best approach
-app.get("/api/product/:querry", async (req, res) => {
+app.get("/api/products/:querry", async (req, res) => {
   try {
     const { querry } = req.params;
     console.log("Searching for:", querry);
