@@ -3,6 +3,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("./models/product.model.js");
 const productRoute = require("./routes/product.route.js");
+const { getProducts } = require("./controllers/product.controller.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -18,20 +19,20 @@ mongoose
   .catch((err) => console.error("Database connection error:", err));
 
 // routes
-app.use("/api/products", productRoute);
+app.use("/api/products", getProducts);
 
 app.get("/", (req, res) => {
   res.send("Hello World! to my l...");
 });
 
-app.get("/api/products", async (req, res) => {
-  try {
-    const product = await Product.find({});
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// app.get("/api/products", async (req, res) => {
+//   try {
+//     const product = await Product.find({});
+//     res.status(200).json(product);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 // this is for get single api data
 // app.get('/api/products/:name', async(req, res)=>{
@@ -50,37 +51,37 @@ app.get("/api/products", async (req, res) => {
 // })
 
 // best approach
-app.get("/api/products/:querry", async (req, res) => {
-  try {
-    const { querry } = req.params;
-    console.log("Searching for:", querry);
+// app.get("/api/products/:querry", async (req, res) => {
+//   try {
+//     const { querry } = req.params;
+//     console.log("Searching for:", querry);
 
-    // Determine where id or name
-    const searchCriteria = mongoose.Types.ObjectId.isValid(querry)
-      ? { _id: querry }
-      : { name: querry };
+//     // Determine where id or name
+//     const searchCriteria = mongoose.Types.ObjectId.isValid(querry)
+//       ? { _id: querry }
+//       : { name: querry };
 
-    const product = await Product.findOne(searchCriteria);
+//     const product = await Product.findOne(searchCriteria);
 
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
+//     if (!product) {
+//       return res.status(404).json({ message: "Product not found" });
+//     }
 
-    res.status(200).json(product);
-  } catch (error) {
-    console.log("error =>", error);
-    res.status(500).json({ message: error.message });
-  }
-});
+//     res.status(200).json(product);
+//   } catch (error) {
+//     console.log("error =>", error);
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
-app.post("/api/products", async (req, res) => {
-  try {
-    const product = await Product.create(req.body);
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// app.post("/api/products", async (req, res) => {
+//   try {
+//     const product = await Product.create(req.body);
+//     res.status(200).json(product);
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 // update api
 app.put("/api/products/:query", async (req, res) => {
