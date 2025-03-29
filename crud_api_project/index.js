@@ -3,7 +3,6 @@ const express = require("express");
 const mongoose = require("mongoose");
 const Product = require("./models/product.model.js");
 const productRoute = require("./routes/product.route.js");
-const { getProducts } = require("./controllers/product.controller.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,10 +18,14 @@ mongoose
   .catch((err) => console.error("Database connection error:", err));
 
 // routes
-app.use("/api/products", getProducts);
+app.use("/api/products", productRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World! to my l...");
+});
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`);
 });
 
 // app.get("/api/products", async (req, res) => {
@@ -49,8 +52,7 @@ app.get("/", (req, res) => {
 //     res.status(500).json({message:error.message});
 //   }
 // })
-
-// best approach
+// best approach ye wala hai
 // app.get("/api/products/:querry", async (req, res) => {
 //   try {
 //     const { querry } = req.params;
@@ -84,62 +86,58 @@ app.get("/", (req, res) => {
 // });
 
 // update api
-app.put("/api/products/:query", async (req, res) => {
-  try {
-    const { query } = req.params;
-    const updateData = req.body; // Get only the fields user provided
+// app.put("/api/products/:query", async (req, res) => {
+//   try {
+//     const { query } = req.params;
+//     const updateData = req.body; // Get only the fields user provided
 
-    if (!Object.keys(updateData).length) {
-      return res.status(400).json({ message: "No fields to update" });
-    }
+//     if (!Object.keys(updateData).length) {
+//       return res.status(400).json({ message: "No fields to update" });
+//     }
 
-    // Determine if query is an ObjectId or a name
-    const searchQuery = mongoose.Types.ObjectId.isValid(query)
-      ? { _id: query }
-      : { name: query };
+//     // Determine if query is an ObjectId or a name
+//     const searchQuery = mongoose.Types.ObjectId.isValid(query)
+//       ? { _id: query }
+//       : { name: query };
 
-    // Find and update the document dynamically
-    const updatedProduct = await Product.findOneAndUpdate(
-      searchQuery,
-      { $set: updateData }, // Use $set to update specific fields
-      { new: true, runValidators: true } // Ensure updated doc is returned and validation runs
-    );
+//     // Find and update the document dynamically
+//     const updatedProduct = await Product.findOneAndUpdate(
+//       searchQuery,
+//       { $set: updateData }, // Use $set to update specific fields
+//       { new: true, runValidators: true } // Ensure updated doc is returned and validation runs
+//     );
 
-    if (!updatedProduct) {
-      return res.status(404).json({ message: "Product not found" });
-    }
+//     if (!updatedProduct) {
+//       return res.status(404).json({ message: "Product not found" });
+//     }
 
-    res.status(200).json(updatedProduct);
-  } catch (error) {
-    console.error("Error updating product:", error);
-    res.status(500).json({ message: error.message || "Internal Server Error" });
-  }
-});
+//     res.status(200).json(updatedProduct);
+//   } catch (error) {
+//     console.error("Error updating product:", error);
+//     res.status(500).json({ message: error.message || "Internal Server Error" });
+//   }
+// });
 
 // delete api
-app.delete("/api/products/:querry", async (req, res) => {
-  try {
-    const { querry } = req.params;
+// app.delete("/api/products/:querry", async (req, res) => {
+//   try {
+//     const { querry } = req.params;
 
-    const searchCriteria = mongoose.Types.ObjectId.isValid(querry)
-      ? { _id: querry }
-      : { name: querry };
+//     const searchCriteria = mongoose.Types.ObjectId.isValid(querry)
+//       ? { _id: querry }
+//       : { name: querry };
 
-    const updatedProduct = await Product.findOneAndDelete(searchCriteria);
+//     const updatedProduct = await Product.findOneAndDelete(searchCriteria);
 
-    if (!updatedProduct) {
-      return res.status(404).json({ message: "Product not found" });
-    }
+//     if (!updatedProduct) {
+//       return res.status(404).json({ message: "Product not found" });
+//     }
 
-    res.status(200).json({ message: "Product deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ messaga: error.message });
-  }
-});
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+//     res.status(200).json({ message: "Product deleted successfully" });
+//   } catch (error) {
+//     res.status(500).json({ messaga: error.message });
+//   }
+// });
 
 // { $set: updateData },
 // { new: true, runValidators: true }

@@ -1,19 +1,17 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("../models/product.model.js"); // Import the Product model
 const {
   getProducts,
   getSingleProduct,
   createProduct,
+  updateProduct,
+  deleteProduct,
 } = require("../controllers/product.controller.js");
 
-// Define the route for getting all products
-router.get("/", getProducts);
-
-router.get("/:querry", getSingleProduct);
-
-// post route
-router.post("/", createProduct);
-router.put("/:query");
+router.get("/", getProducts);   // working
+router.get("/:query", getSingleProduct); // working
+router.post("/", createProduct);  // working
+router.put("/:query", updateProduct); //working
+router.delete("/:query", deleteProduct); // working
 
 module.exports = router;
