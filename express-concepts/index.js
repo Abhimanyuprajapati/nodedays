@@ -2,15 +2,21 @@ require('dotenv').config(); // load environment variables from .env file
 const express = require('express'); // import express module
 const cors = require('cors'); // import cors module
 const corsConfig = require('./config/corsConfig'); // import cors configuration
+const { globalErrorHandler } = require('./middleware/errorHandler'); // import global error handler
+const { requestLogger, addTimeStamp } = require('./middleware/customMiddleware'); // import custom middleware functions
 
 const app = express(); // create an instance of express
 const PORT = process.env.PORT || 1369; // set the port to listen on
 
 
 // express json middleware
+app.use(requestLogger);
+app.use(addTimeStamp);
 app.use(express.json()); // parse json data in request body
 app.use(cors()); // enable cors for all routes
 app.use(corsConfig()); // enable cors with custom configuration
+
+app.use(globalErrorHandler); // use global error handler
 
 
 
