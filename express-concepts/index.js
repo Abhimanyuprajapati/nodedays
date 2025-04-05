@@ -6,6 +6,8 @@ const { globalErrorHandler } = require('./middleware/errorHandler'); // import g
 const { requestLogger, addTimeStamp } = require('./middleware/customMiddleware'); // import custom middleware functions
 const {urlVersioning} = require('./middleware/apiVersioning'); // import versioning middleware
 const {createBasicRateLimiter} = require('./middleware/rateLimiting'); // import rate limiting middleware
+const itemRoutes = require('./routes/item-routes'); // import item routes
+
 
 const app = express(); // create an instance of express
 const PORT = process.env.PORT || 1369; // set the port to listen on
@@ -21,6 +23,8 @@ app.use(corsConfig()); // enable cors with custom configuration
 app.use(createBasicRateLimiter(100, 15 * 60 * 1000)); // 100 requests per minute
 
 app.use(urlVersioning('v1')); // use versioning middleware for v1
+
+app.use("/api/v1", itemRoutes);
 
 app.use(globalErrorHandler); // use global error handler
 

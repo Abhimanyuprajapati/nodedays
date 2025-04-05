@@ -1,5 +1,5 @@
-import { rateLimit } from 'express-rate-limit'
 
+const rateLimit = require('express-rate-limit') // import rate limiting middleware
 
 const createBasicRateLimiter = (maxRequests, time)=>{
 	return rateLimit({
