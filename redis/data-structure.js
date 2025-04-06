@@ -27,7 +27,27 @@ async function redisDataStructure(){
         console.log(username, age, city);
 
 
+// lists -> LPUSH, LPOP, RPUSH, RPOP, LRANGE
 
+        // await client.lPush("mylist", ["item1", "item2", "item3", "item4"]);
+        // const extractAll = await client.lRange("mylist", 0,-1);
+        // console.log(extractAll);
+
+        // const firstNode = await client.lPop("mylist");
+        // console.log(firstNode);
+
+        // const remainingNode = await client.lRange("mylist", 0,-1);
+        // console.log(remainingNode);
+
+        // const lastinsert = await client.rPush("mylist", ["manshi", "manu", "manu1"]);
+
+        // console.log(lastinsert);
+
+        // const remainingNode = await client.lRange("mylist", 0,-1);
+        // console.log(remainingNode);
+
+        // const lastNode = await client.rPop("mylist");
+        // console.log(lastNode);
         
     }catch(err){
         console.log(err);
